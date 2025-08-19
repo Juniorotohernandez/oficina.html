@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>HERPLUS – Registro</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .glass{background:rgba(255,255,255,.82);backdrop-filter:saturate(140%) blur(10px)}
+    .toast{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);padding:.5rem .75rem;border-radius:.5rem;background:#0ea5e9;color:#fff;font-size:.85rem;box-shadow:0 10px 20px rgba(2,132,199,.3);opacity:0;transition:opacity .2s}
+    .toast.show{opacity:1}
+    .hint{font-size:.72rem}
+    button:focus,a:focus{outline:2px solid #6366f1;outline-offset:2px}
+  </style>
+</head>
+<body class="bg-gradient-to-br from-indigo-50 via-white to-emerald-50 text-slate-800">
+  <header class="sticky top-0 z-20 bg-white/90 backdrop-blur border-b">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-xl bg-indigo-600" aria-hidden="true"></div>
+        <div>
+          <h1 class="text-lg font-semibold leading-tight">HERPLUS</h1>
+          <p class="text-xs text-slate-500">Registro oficina virtual</p>
+        </div>
+      </div>
+      <a href="oficina.html" class="text-xs text-indigo-700 hover:underline">Ir a Oficina Virtual</a>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 py-8">
+    <section class="max-w-lg mx-auto glass rounded-2xl p-6 shadow-lg">
+      <h2 class="text-xl font-semibold">Crea tu acceso</h2>
+      <p class="text-sm text-slate-600">Completa tus datos para activar tu Oficina Virtual.</p>
+
+      <!-- Sponsor (informativo, sin explicaciones) -->
+      <div class="mt-4 p-3 rounded-xl border bg-slate-50">
+        <div class="flex items-center justify-between">
+          <div>
+            <div class="text-xs text-slate-500">Sponsor asignado</div>
+            <div id="sponsorUser" class="text-sm font-medium">—</div>
+          </div>
+          <span id="sponsorStatus" class="px-2 py-0.5 rounded bg-slate-200 text-xs">Verificando…</span>
+        </div>
+      </div>
+
+      <!-- FORM -->
+      <div class="grid gap-3 mt-5">
+        <div>
+          <label class="text-xs text-slate-500" for="username">Nombre de usuario</label>
+          <input id="username" class="w-full border rounded-lg px-3 py-2" placeholder="tu_usuario" autocomplete="username" />
+          <p class="hint text-slate-500">3–20 caracteres (letras, números y _). Debe ser único.</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-3">
+          <div>
+            <label class="text-xs text-slate-500" for="pass">Código para Oficina Virtual</label>
+            <input id="pass" type="password" class="w-full border rounded-lg px-3 py-2" placeholder="mín. 6 caracteres" autocomplete="new-password" />
+          </div>
+          <div>
+            <label class="text-xs text-slate-500" for="pass2">Repite el código</label>
+            <input id="pass2" type="password" class="w-full border rounded-lg px-3 py-2" placeholder="confirmación" autocomplete="new-password" />
+          </div>
+        </div>
+
+        <div>
+          <label class="text-xs text-slate-500" for="codigoHerplus">Código para HERPLUS</label>
+          <input id="codigoHerplus" type="password" class="w-full border rounded-lg px-3 py-2" placeholder="mín. 6 caracteres" />
+        </div>
+
+        <div>
+          <label class="text-xs text-slate-500" for="whats">WhatsApp (incluye código de país)</label>
+          <input id="whats" class="w-full border rounded-lg px-3 py-2" placeholder="+5049XXXXXXX" autocomplete="tel" />
+          <p class="hint text-slate-500">Formato internacional: +código y número (8–15 dígitos).</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-3">
+          <div>
+            <label class="text-xs text-slate-500" for="airtm_handle">Usuario / Handle de Airtm</label>
+            <input id="airtm_handle" class="w-full border rounded-lg px-3 py-2" placeholder="@tuusuario" />
+          </div>
+          <div>
+            <label class="text-xs text-slate-500" for="airtm_email">Correo de Airtm</label>
+            <input id="airtm_email" type="email" class="w-full border rounded-lg px-3 py-2" placeholder="tu-airtm@correo.com" />
+          </div>
+        </div>
+
+        <div class="flex items-start gap-2 mt-1">
+          <input id="terms" type="checkbox" class="mt-1">
+          <label for="terms" class="text-xs text-slate-600">Acepto los términos y la política de privacidad.</label>
+        </div>
+
+        <button id="submitBtn" type="button" class="mt-2 px-4 py-2 rounded-lg bg-indigo-600 text-white">Crear cuenta</button>
+        <p id="formMsg" class="text-xs mt-1" aria-live="polite"></p>
+
+        <div class="mt-4 p-3 rounded-xl border bg-emerald-50 text-emerald-700 text-xs">
+          <b>Gracias por registrarte.</b> En breve un asesor de HERPLUS se comunicará contigo vía WhatsApp para completar la activación y validar tus datos.
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="toast" class="toast" aria-live="polite">Procesando…</div>
+
+  <!-- Firebase v8 -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
+  <script>
+    // ===== Firebase =====
+    const firebaseConfig = {
+      apiKey: "AIzaSyD_v8yXx1W6zcGFXXMHeNJh0RSzbnO-j84",
+      authDomain: "herplus.firebaseapp.com",
+      projectId: "herplus",
+      storageBucket: "herplus.appspot.com",
+      messagingSenderId: "556494279952",
+      appId: "1:556494279952:web:f788776f50840b28434195"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+    const auth = firebase.auth();
+
+    // ===== Config locales =====
+    // ★ Redirige siempre a la Oficina Virtual cuando termine el registro (ya logueado)
+    const OFFICE_URL = new URL("oficina.html", window.location.href).href; // ★
+    const AUTH_EMAIL_DOMAIN = "herplus.id";  // dominio interno para generar email de Auth
+
+    // ⚠️ TU CUENTA CORPORATIVA (fallback silencioso del sponsor)
+    const ADMIN_UID_DEFAULT = "TU_ADMIN_UID_AQUI";   // <-- REEMPLAZA
+    const ADMIN_USERNAME_DEFAULT = "HERPLUS";        // opcional (solo visual)
+
+    // ===== Utils =====
+    const $ = (id)=>document.getElementById(id);
+    function toast(msg="Listo"){ const t=$("toast"); t.textContent=msg; t.classList.add("show"); setTimeout(()=>t.classList.remove("show"),1500); }
+    function setMsg(el, msg, ok=false){ el.textContent = msg; el.className = "text-xs mt-1 " + (ok ? "text-emerald-600" : "text-rose-600"); }
+    function getParam(name){ return new URLSearchParams(location.search).get(name) || ""; }
+    const reUser = /^[a-zA-Z0-9_]{3,20}$/;
+    const rePhoneIntl = /^\+\d{8,15}$/;
+    function validEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test((v||"").trim()); }
+    function norm(v){ return (v||"").trim(); }
+
+    async function usernameDisponible(u){
+      const qs = await db.collection("users").where("username","==",u).limit(1).get();
+      return qs.empty;
+    }
+    async function getUserDocById(id){
+      const s = await db.collection("users").doc(id).get();
+      if(!s.exists) return null;
+      const d = s.data() || {};
+      return { id, username: d.username || id, exists: true };
+    }
+    async function getUserDocByUsername(username){
+      const qs = await db.collection("users").where("username","==",username).limit(1).get();
+      if(qs.empty) return null;
+      const doc = qs.docs[0]; const d = doc.data() || {};
+      return { id: doc.id, username: d.username || doc.id, exists: true };
+    }
+    function looksLikeUid(s){ return /^[A-Za-z0-9._-]{16,40}$/.test(s||""); }
+
+    // ===== Resolver sponsor (UID o username en ?ref=; si no, corporativo en silencio) =====
+    const sponsor = { id:null, username:null, exists:false };
+    (async function initSponsor(){
+      const tag = $("sponsorStatus"), name = $("sponsorUser");
+      const ref = getParam("ref");
+
+      if(ref){
+        try{
+          let got = looksLikeUid(ref) ? await getUserDocById(ref) : await getUserDocByUsername(ref);
+          if(!got){ got = looksLikeUid(ref) ? await getUserDocByUsername(ref) : await getUserDocById(ref); }
+          if(got){
+            Object.assign(sponsor, got, { exists:true });
+            tag.textContent = "Verificado";
+            tag.className = "px-2 py-0.5 rounded bg-emerald-100 text-emerald-700 text-xs";
+            name.textContent = "@"+sponsor.username;
+            return;
+          }
+        }catch(_){}
+      }
+      // Fallback silencioso
+      sponsor.id = ADMIN_UID_DEFAULT;
+      sponsor.username = ADMIN_USERNAME_DEFAULT || ADMIN_UID_DEFAULT;
+      sponsor.exists = true;
+      tag.textContent = "Asignado";
+      tag.className = "px-2 py-0.5 rounded bg-indigo-100 text-indigo-700 text-xs";
+      name.textContent = "@"+sponsor.username;
+    })();
+
+    // ===== Registro =====
+    $("submitBtn").addEventListener("click", async ()=>{
+      const msg = $("formMsg"); setMsg(msg, "");
+
+      const username = norm($("username").value);
+      const pass = $("pass").value;
+      const pass2 = $("pass2").value;
+      const codigoHerplus = norm($("codigoHerplus").value);
+      const whats = norm($("whats").value);
+      const airtm_handle = norm($("airtm_handle").value);
+      const airtm_email = norm($("airtm_email").value);
+      const terms = $("terms").checked;
+
+      // Validaciones
+      if(!reUser.test(username)) return setMsg(msg,"Usuario inválido. Usa 3–20 caracteres (letras, números, _).");
+      if(!pass || pass.length<6) return setMsg(msg,"El código de acceso debe tener al menos 6 caracteres.");
+      if(pass !== pass2) return setMsg(msg,"Los códigos no coinciden.");
+      if(!codigoHerplus || codigoHerplus.length<6) return setMsg(msg,"El Código HERPLUS debe tener al menos 6 caracteres.");
+      if(!rePhoneIntl.test(whats)) return setMsg(msg,"WhatsApp inválido. Usa formato +código y número (8–15 dígitos).");
+      if(airtm_email && !validEmail(airtm_email)) return setMsg(msg,"Correo de Airtm inválido.");
+      if(!terms) return setMsg(msg,"Debes aceptar los términos para continuar.");
+
+      try{
+        toast("Validando usuario…");
+        const libre = await usernameDisponible(username);
+        if(!libre) return setMsg(msg,"Ese usuario ya existe. Prueba otro.");
+
+        // Email interno para Auth
+        const authEmail = `${username.toLowerCase()}@${AUTH_EMAIL_DOMAIN}`;
+
+        toast("Creando cuenta…");
+        const cred = await auth.createUserWithEmailAndPassword(authEmail, pass);
+        const uid = cred.user.uid;
+        try{ await cred.user.updateProfile({ displayName: username }); }catch(_){}
+
+        // Sponsor definitivo
+        const sponsorId = sponsor?.id || ADMIN_UID_DEFAULT;
+        const sponsorUsername = sponsor?.username || ADMIN_USERNAME_DEFAULT || null;
+
+        // Airtm para Pagos (Pendientes/Panel)
+        if (airtm_handle || airtm_email){
+          await db.collection("payoutProfiles").doc(uid).set({
+            airtm: {
+              handle: airtm_handle || null,
+              email: airtm_email || null,
+              updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+            }
+          }, { merge:true });
+        }
+
+        // Guardar perfil en users (status "pending" → Pendientes del Panel)
+        const now = firebase.firestore.FieldValue.serverTimestamp();
+        const payload = {
+          uid,
+          username,
+          email: authEmail,                 // login por usuario + código usa este mapeo
+          whatsapp: whats,
+          codigoHerplus,
+          movieCodeEntered: pass,           // se muestra en la tabla del Panel
+          sponsorId,
+          sponsorUsername,
+          placementParentId: sponsorId,     // ★ asigna el padre al sponsor detectado
+          depth: 0,
+          status: "pending",
+          createdAt: now,
+          updatedAt: now,
+          rank: { level:0, name:"Sin rango", badge:"⬜", updatedAt: now }
+        };
+        await db.collection("users").doc(uid).set(payload, { merge:true });
+
+        setMsg(msg, "Registro completado. Redirigiendo a tu Oficina…", true);
+        toast("¡Bienvenido a HERPLUS!");
+        // Ya autenticado → dirigir a la Oficina Virtual
+        setTimeout(()=>{ location.href = OFFICE_URL; }, 900);
+      }catch(e){
+        console.error(e);
+        const code = e?.code || "";
+        if(code==="auth/email-already-in-use") return setMsg(msg,"Ese usuario ya está en uso. Elige otro.");
+        if(code==="auth/invalid-email") return setMsg(msg,"Nombre de usuario no válido. Prueba con otro.");
+        if(code==="auth/weak-password") return setMsg(msg,"El código de acceso es muy débil (mínimo 6).");
+        setMsg(msg, e?.message || "No se pudo crear la cuenta.");
+      }
+    });
+  </script>
+</body>
+</html>
+
+
+
