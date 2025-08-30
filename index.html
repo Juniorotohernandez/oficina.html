@@ -1,8 +1,9 @@
+<!-- PARTE 1/3 — HERPLUS Oficina Virtual (HTML actualizado sin 'Últimas comisiones' ni 'Mis ganancias') -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>HERPLUS – Oficina Virtual</title>
 
   <!-- Tailwind -->
@@ -12,35 +13,40 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
   <style>
-    .glass{background:rgba(255,255,255,0.8);backdrop-filter:saturate(150%) blur(8px)}
-    .tag{display:inline-flex;align-items:center;gap:.4rem;border:1px solid #e5e7eb;background:#f8fafc;padding:.25rem .6rem;border-radius:.6rem;font-size:.75rem}
-    .tag.active{background:#eef2ff;border-color:#c7d2fe;color:#3730a3}
-    .tag .dot{width:.5rem;height:.5rem;border-radius:9999px;background:#cbd5e1}
-    .tag.active .dot{background:#6366f1}
-    .toast{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);padding:.5rem .75rem;border-radius:.5rem;background:#0ea5e9;color:#fff;font-size:.85rem;box-shadow:0 10px 20px rgba(2,132,199,.3);opacity:0;transition:opacity .2s}
-    .toast.show{opacity:1}
-    button:focus, a:focus { outline: 2px solid #6366f1; outline-offset: 2px; }
+    .glass { background: rgba(255,255,255,0.8); backdrop-filter: saturate(150%) blur(8px); }
+    .tag {
+      display:inline-flex; align-items:center; gap:.4rem;
+      border:1px solid #e5e7eb; background:#f8fafc; padding:.25rem .6rem;
+      border-radius:.6rem; font-size:.75rem;
+    }
+    .tag.active { background:#eef2ff; border-color:#c7d2fe; color:#3730a3; }
+    .tag .dot { width:.5rem; height:.5rem; border-radius:9999px; background:#cbd5e1; }
+    .tag.active .dot { background:#6366f1; }
+    .toast {
+      position:fixed; bottom:16px; left:50%; transform:translateX(-50%);
+      padding:.5rem .75rem; border-radius:.5rem; background:#0ea5e9; color:#fff;
+      font-size:.85rem; box-shadow:0 10px 20px rgba(2,132,199,.3); opacity:0; transition:opacity .2s;
+    }
+    .toast.show { opacity:1; }
+    button:focus, a:focus { outline:2px solid #6366f1; outline-offset:2px; }
   </style>
 </head>
 <body class="bg-gradient-to-br from-indigo-50 via-white to-emerald-50 text-slate-800">
+
   <!-- HEADER -->
   <header class="sticky top-0 z-20 bg-white/90 backdrop-blur border-b">
     <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
       <div class="flex items-center gap-3">
-        <div class="w-9 h-9 rounded-xl bg-indigo-600" aria-hidden="true"></div>
         <div>
           <h1 class="text-lg font-semibold leading-tight">HERPLUS</h1>
-          <p class="text-xs text-slate-500">Oficina Virtual
-            <!-- Chip de reparto (POOL) -->
-            <span id="poolChip" class="hidden text-[11px] md:inline-block ml-2 px-2 py-0.5 rounded bg-indigo-50 border border-indigo-200 text-indigo-800">
-              Reparto: L 0
-            </span>
+          <p class="text-xs text-slate-500">
+            Oficina Virtual
+            <!-- chip eliminado -->
           </p>
         </div>
       </div>
       <div class="flex items-center gap-3">
         <span id="uName" class="text-xs text-slate-700 font-medium" aria-live="polite"></span>
-        <!-- Este anchor se actualizará dinámicamente con el ref del usuario al iniciar sesión -->
         <a id="registerLink" href="registro.html" class="hidden md:inline text-xs text-indigo-700 hover:underline">Registrarse</a>
         <button id="logoutBtn" type="button" class="hidden px-3 py-1.5 rounded-lg bg-slate-800 text-white text-xs">Salir</button>
       </div>
@@ -77,7 +83,7 @@
         <button data-tab="tab-dashboard" type="button" role="tab" aria-controls="tab-dashboard" aria-selected="true" class="tab-btn px-3 py-1.5 rounded-lg bg-indigo-600 text-white">Dashboard</button>
         <button data-tab="tab-ganancias" type="button" role="tab" aria-controls="tab-ganancias" aria-selected="false" class="tab-btn px-3 py-1.5 rounded-lg hover:bg-slate-200">Ganancias</button>
         <button data-tab="tab-red" type="button" role="tab" aria-controls="tab-red" aria-selected="false" class="tab-btn px-3 py-1.5 rounded-lg hover:bg-slate-200">Mi Red</button>
-        <button data-tab="tab-pago" type="button" role="tab" aria-controls="tab-pago" aria-selected="false" class="tab-btn px-3 py-1.5 rounded-lg hover:bg-slate-200">Método de Pago (Airtm)</button>
+        <button data-tab="tab-pago" type="button" role="tab" aria-controls="tab-pago" aria-selected="false" class="tab-btn px-3 py-1.5 rounded-lg hover:bg-slate-200">Método de Pago</button>
         <button data-tab="tab-perfil" type="button" role="tab" aria-controls="tab-perfil" aria-selected="false" class="tab-btn px-3 py-1.5 rounded-lg hover:bg-slate-200">Perfil</button>
       </div>
 
@@ -125,40 +131,26 @@
           <p class="text-xs text-slate-500 mt-1">Comparte este enlace. Abre un formulario de registro con tu usuario como sponsor.</p>
         </div>
 
-        <div class="glass rounded-xl p-4 shadow mt-4">
-          <div class="flex items-center justify-between">
-            <h4 class="font-semibold">Últimas comisiones</h4>
-            <span id="sumarioGanancias" class="text-xs bg-slate-100 px-2 py-1 rounded">Total: L 0 | Directos: L 0</span>
-          </div>
-          <div class="overflow-auto mt-2">
-            <table class="min-w-full text-sm">
-              <thead>
-                <tr class="bg-slate-50">
-                  <th class="text-left p-2">Fecha</th>
-                  <th class="text-left p-2">Nivel</th>
-                  <th class="text-left p-2">Origen</th>
-                  <th class="text-left p-2">Monto</th>
-                </tr>
-              </thead>
-              <tbody id="ultimasComisiones"></tbody>
-            </table>
-          </div>
-        </div>
+        <!-- BLOQUE 'Últimas comisiones' eliminado -->
       </section>
-
+      <!-- FIN DASHBOARD -->
       <!-- GANANCIAS -->
       <section id="tab-ganancias" class="tab hidden mt-4" role="tabpanel">
-        <!-- Widget de distribución (POOL) -->
         <div class="glass rounded-xl p-4 shadow border border-indigo-100">
           <div class="flex items-start justify-between gap-3 flex-wrap">
             <div>
               <h4 class="font-semibold">Distribución actual de activación</h4>
-              <p class="text-xs text-slate-500">Se toma la cuota de activación y se aplica el % de red para formar el <b>POOL</b>. Ese pool se distribuye entre los 10 niveles según el % de cada nivel.</p>
+              <p class="text-xs text-slate-500">
+                Se toma la cuota de activación y se aplica el % de red para formar el <b>POOL</b>.
+                Ese pool se distribuye entre los 10 niveles según el % de cada nivel.
+              </p>
             </div>
             <div class="text-right text-sm">
               <div><span class="text-slate-500">Cuota:</span> <b id="distFee">L 0</b></div>
               <div><span class="text-slate-500">% Red:</span> <b id="distPct">0%</b></div>
-              <div><span class="text-slate-500">POOL (a repartir):</span> <b id="distPool" class="text-indigo-700">L 0</b></div>
+              <div><span class="text-slate-500">POOL (a repartir):</span>
+                <b id="distPool" class="text-indigo-700">L 0</b>
+              </div>
             </div>
           </div>
 
@@ -176,36 +168,19 @@
           </div>
         </div>
 
+        <!-- *** 'Mis ganancias' ELIMINADO *** -->
+
         <div class="glass rounded-xl p-4 shadow space-y-6 mt-4">
           <div>
             <div class="flex items-center justify-between">
-              <h3 class="font-semibold">Mis ganancias</h3>
-              <span id="sumarioGanancias2" class="text-xs bg-slate-100 px-2 py-1 rounded">Total: L 0 | Directos: L 0</span>
-            </div>
-            <p class="text-xs text-slate-500 mb-2">Comisiones donde tú eres el beneficiario.</p>
-            <div class="overflow-auto">
-              <table class="min-w-full text-sm">
-                <thead>
-                  <tr class="bg-slate-50">
-                    <th class="text-left p-2">Fecha</th>
-                    <th class="text-left p-2">Nivel</th>
-                    <th class="text-left p-2">Usuario origen</th>
-                    <th class="text-left p-2">% o tasa</th>
-                    <th class="text-left p-2">Monto</th>
-                  </tr>
-                </thead>
-                <tbody id="tablaComisiones"></tbody>
-              </table>
-            </div>
-          </div>
-
-          <!-- GANANCIAS POR SOCIO -->
-          <div>
-            <div class="flex items-center justify-between">
               <h3 class="font-semibold">Ganancias por socio en mi red</h3>
-              <span id="sumarioGananciasRed" class="text-xs bg-slate-100 px-2 py-1 rounded">Socios: 0 | Total: L 0</span>
+              <span id="sumarioGananciasRed" class="text-xs bg-slate-100 px-2 py-1 rounded">
+                Socios: 0 | Total: L 0
+              </span>
             </div>
-            <p class="text-xs text-slate-500 mb-2">Solo quienes te generaron comisión. Muestra nivel, # de transacciones, % promedio y total ganado por socio.</p>
+            <p class="text-xs text-slate-500 mb-2">
+              Solo quienes te generaron comisión. Muestra nivel, # de transacciones, % promedio y total ganado por socio.
+            </p>
             <div class="overflow-auto">
               <table class="min-w-full text-sm">
                 <thead>
@@ -252,8 +227,12 @@
           </div>
 
           <div class="mt-3 flex flex-wrap gap-2">
-            <button id="viewTableBtn" type="button" class="px-3 py-1.5 rounded-lg bg-slate-900 text-white text-xs">Vista Tabla</button>
-            <button id="viewPyramidBtn" type="button" class="px-3 py-1.5 rounded-lg bg-slate-200 text-xs">Vista Pirámide</button>
+            <button id="viewTableBtn" type="button" class="px-3 py-1.5 rounded-lg bg-slate-900 text-white text-xs">
+              Vista Tabla
+            </button>
+            <button id="viewPyramidBtn" type="button" class="px-3 py-1.5 rounded-lg bg-slate-200 text-xs">
+              Vista Pirámide
+            </button>
           </div>
 
           <div id="tableWrap" class="mt-4">
@@ -276,7 +255,9 @@
             <div class="mt-4">
               <div class="flex items-center justify-between">
                 <h4 class="font-semibold">Nivel <span id="nivelActualLabel">1</span></h4>
-                <button id="exportCSV" type="button" class="px-3 py-1.5 rounded-lg bg-slate-900 text-white text-xs">Exportar CSV</button>
+                <button id="exportCSV" type="button" class="px-3 py-1.5 rounded-lg bg-slate-900 text-white text-xs">
+                  Exportar CSV
+                </button>
               </div>
               <div class="overflow-auto mt-2">
                 <table class="min-w-full text-sm">
@@ -300,7 +281,9 @@
                 <span>Nodos por nivel:</span>
                 <input id="maxPerLevel" type="number" min="1" value="120" class="w-20 border rounded px-2 py-1 text-xs">
               </div>
-              <button id="exportSVG" type="button" class="px-3 py-1.5 rounded-lg bg-indigo-600 text-white text-xs">Exportar SVG</button>
+              <button id="exportSVG" type="button" class="px-3 py-1.5 rounded-lg bg-indigo-600 text-white text-xs">
+                Exportar SVG
+              </button>
             </div>
 
             <div id="pyrLegend" class="mt-3 flex flex-wrap gap-2 text-xs"></div>
@@ -309,23 +292,31 @@
             <div id="pyramidContainer" class="relative mt-2 bg-white rounded-xl border overflow-auto" style="height: 560px;"></div>
 
             <div id="pyrTooltip" class="hidden absolute z-20 text-xs bg-slate-900 text-white px-2 py-1 rounded shadow"
-                 style="pointer-events:none; max-width:260px; white-space:pre-wrap;"></div>
+              style="pointer-events:none; max-width:260px; white-space:pre-wrap;"></div>
 
-            <p class="text-xs text-slate-500 mt-2">* Arriba verás tu usuario en la cima. Debajo, cada fila representa un nivel (1 a 10).</p>
+            <p class="text-xs text-slate-500 mt-2">
+              * Arriba verás tu usuario en la cima. Debajo, cada fila representa un nivel (1 a 10).
+            </p>
           </div>
 
-          <p class="text-xs text-slate-500 mt-2">* Si tu red es grande, la vista pirámide limita los nodos por nivel para mantener el rendimiento.</p>
+          <p class="text-xs text-slate-500 mt-2">
+            * Si tu red es grande, la vista pirámide limita los nodos por nivel para mantener el rendimiento.
+          </p>
         </div>
       </section>
 
-      <!-- MÉTODO DE PAGO -->
+      <!-- MÉTODO DE PAGO (BANCO) -->
       <section id="tab-pago" class="tab hidden mt-4" role="tabpanel">
         <div class="glass rounded-xl p-4 shadow">
           <div class="flex items-center justify-between">
-            <h3 class="font-semibold">Método de Pago: Airtm</h3>
-            <button id="openPago" type="button" class="px-3 py-2 rounded-lg bg-indigo-600 text-white">Configurar / Cambiar</button>
+            <h3 class="font-semibold">Método de Pago: Cuenta Bancaria</h3>
+            <button id="openPago" type="button" class="px-3 py-2 rounded-lg bg-indigo-600 text-white">
+              Configurar / Cambiar
+            </button>
           </div>
-          <p class="text-xs text-slate-500 mt-1">Se mostrará también al Administrador en el panel.</p>
+          <p class="text-xs text-slate-500 mt-1">
+            Estos datos estarán visibles para el Administrador al procesar tus pagos.
+          </p>
           <div class="bg-slate-50 rounded-xl border p-4 mt-3">
             <h4 class="font-semibold mb-1">Tu configuración actual</h4>
             <pre id="pagoPreview" class="text-xs whitespace-pre-wrap">Sin configurar</pre>
@@ -343,62 +334,70 @@
               <input id="p_username" class="w-full border rounded-lg px-3 py-2 bg-slate-50" readonly>
             </div>
             <div>
-              <label class="text-xs text-slate-500" for="p_whats">WhatsApp</label>
-              <input id="p_whats" class="w-full border rounded-lg px-3 py-2" placeholder="+5049XXXXXXX">
+              <label class="text-xs text-slate-500" for="p_email">Correo electrónico</label>
+              <input id="p_email" type="email" class="w-full border rounded-lg px-3 py-2" placeholder="tucorreo@dominio.com">
             </div>
             <div>
-              <label class="text-xs text-slate-500" for="p_movie">Código Oficina Virtual</label>
-              <input id="p_movie" class="w-full border rounded-lg px-3 py-2 bg-slate-50" placeholder="(lo asigna el admin)" readonly>
-            </div>
-          </div>
-
-          <div class="mt-4">
-            <label class="text-xs text-slate-500" for="codigoHerplus">Código para ver HERPLUS</label>
-            <div class="flex gap-2 mt-1">
-              <input id="codigoHerplus" type="password" class="w-full border rounded-lg px-3 py-2">
-              <button id="toggleHerplus" type="button" class="px-3 py-2 rounded-lg bg-slate-700 text-white text-xs" aria-label="Mostrar/ocultar código HERPLUS">👁</button>
+              <label class="text-xs text-slate-500" for="p_whats">WhatsApp</label>
+              <input id="p_whats" class="w-full border rounded-lg px-3 py-2" placeholder="+5049XXXXXXX">
             </div>
           </div>
 
           <div class="mt-3">
             <label class="text-xs text-slate-500" for="codigoOficina">Código para ingresar a la Oficina Virtual</label>
             <div class="flex gap-2 mt-1">
-              <input id="codigoOficina" type="password" class="w-full border rounded-lg px-3 py-2">
+              <input id="codigoOficina" type="password" class="w-full border rounded-lg px-3 py-2" placeholder="mín. 6 caracteres">
               <button id="toggleOficina" type="button" class="px-3 py-2 rounded-lg bg-slate-700 text-white text-xs" aria-label="Mostrar/ocultar código Oficina">👁</button>
             </div>
-            <p class="text-[11px] text-slate-500 mt-1">Este código es tu contraseña de acceso. Al guardarlo aquí también se actualizará en Firebase Auth.</p>
+            <p class="text-[11px] text-slate-500 mt-1">
+              Este código es tu contraseña de acceso. Al guardarlo aquí también se actualizará en Firebase Auth.
+            </p>
           </div>
 
           <div class="mt-3 flex flex-wrap gap-2">
             <button id="savePerfil" type="button" class="px-4 py-2 rounded-lg bg-emerald-600 text-white">Guardar Perfil</button>
-            <button id="guardarCodigos" type="button" class="px-4 py-2 rounded-lg bg-indigo-600 text-white">Guardar Códigos</button>
+            <button id="guardarCodigos" type="button" class="px-4 py-2 rounded-lg bg-indigo-600 text-white">Guardar Código</button>
           </div>
           <p id="perfilMsg" class="text-xs mt-2 text-slate-600" aria-live="polite"></p>
         </div>
       </section>
-    </section>
+    </section> <!-- /#app -->
   </main>
 
   <!-- OVERLAYS -->
+  <!-- Modal de pago bancario -->
   <div id="pagoOverlay" class="fixed inset-0 hidden items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="pagoTitle">
     <div class="absolute inset-0 bg-slate-900/70"></div>
     <div class="relative max-w-lg w-full glass rounded-2xl p-5 shadow-2xl">
       <div class="flex items-center justify-between">
-        <h3 class="text-lg font-semibold" id="pagoTitle">Configurar Airtm</h3>
+        <h3 class="text-lg font-semibold" id="pagoTitle">Configurar datos bancarios</h3>
         <button id="closePago" type="button" class="px-3 py-1.5 rounded-lg bg-slate-200">Cerrar</button>
       </div>
-      <p class="text-xs text-slate-500 mt-1">Ingresa tus datos de Airtm para recibir pagos.</p>
+      <p class="text-xs text-slate-500 mt-1">Ingresa tus datos de banco para recibir pagos.</p>
+
       <div class="grid md:grid-cols-2 gap-3 mt-3">
-        <div>
-          <label class="text-xs text-slate-500" for="airtm_handle">Usuario / Handle de Airtm</label>
-          <input id="airtm_handle" class="w-full border rounded-lg px-3 py-2" placeholder="@tuusuario">
+        <div class="md:col-span-2">
+          <label class="text-xs text-slate-500" for="bank_name">Nombre del banco</label>
+          <input id="bank_name" class="w-full border rounded-lg px-3 py-2" placeholder="Banco Ejemplo S.A.">
+        </div>
+        <div class="md:col-span-2">
+          <label class="text-xs text-slate-500" for="bank_account_name">Nombre del titular</label>
+          <input id="bank_account_name" class="w-full border rounded-lg px-3 py-2" placeholder="Nombre como aparece en el banco">
         </div>
         <div>
-          <label class="text-xs text-slate-500" for="airtm_email">Correo de Airtm</label>
-          <input id="airtm_email" class="w-full border rounded-lg px-3 py-2" type="email" placeholder="tu-airtm@correo.com">
+          <label class="text-xs text-slate-500" for="bank_account_number">Número de cuenta</label>
+          <input id="bank_account_number" class="w-full border rounded-lg px-3 py-2" placeholder="Ej. 1234567890">
+        </div>
+        <div>
+          <label class="text-xs text-slate-500" for="bank_id_number">Cédula / ID</label>
+          <input id="bank_id_number" class="w-full border rounded-lg px-3 py-2" placeholder="Ej. 0801-....">
         </div>
       </div>
-      <button id="saveAirtm" type="button" class="mt-4 w-full px-4 py-2 rounded-lg bg-indigo-600 text-white">Guardar Airtm</button>
+
+      <button id="saveBank" type="button" class="mt-4 w-full px-4 py-2 rounded-lg bg-indigo-600 text-white">
+        Guardar datos bancarios
+      </button>
+
       <div class="bg-slate-50 rounded-xl border p-3 mt-3">
         <h4 class="font-semibold text-sm">Vista previa</h4>
         <pre id="previewOverlay" class="text-xs whitespace-pre-wrap">—</pre>
@@ -406,6 +405,7 @@
     </div>
   </div>
 
+  <!-- Detalle miembro -->
   <div id="nodeOverlay" class="fixed inset-0 hidden items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="nodeTitle">
     <div class="absolute inset-0 bg-slate-900/70"></div>
     <div class="relative max-w-lg w-full glass rounded-2xl p-5 shadow-2xl">
@@ -418,7 +418,6 @@
   </div>
 
   <div id="toast" class="toast" aria-live="polite">Copiado</div>
-
   <!-- Firebase v8 (único SDK) -->
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
@@ -439,52 +438,46 @@
     const auth = firebase.auth();
 
     // ===== Helpers =====
-    const $ = (id)=>document.getElementById(id);
-    const HNL = new Intl.NumberFormat("es-HN",{style:"currency",currency:"HNL",maximumFractionDigits:0});
-    const DT  = new Intl.DateTimeFormat("es-HN",{dateStyle:"medium",timeStyle:"short"});
-    const fmt = (n)=> HNL.format(Number(n||0));
-    const tsStr = (ts)=> ts?.toDate ? DT.format(ts.toDate()) : (ts ? DT.format(new Date(ts)) : "");
-    function show(el){el.classList.remove('hidden')} function hide(el){el.classList.add('hidden')}
-    function copyText(t){ return navigator.clipboard?.writeText(t).catch(()=>{}); }
-    function toast(msg="Copiado"){const t=$("toast"); t.textContent=msg; t.classList.add("show"); setTimeout(()=>t.classList.remove("show"),1200); }
-    function htmlEscape(s){return String(s??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
-    function appendCell(tr, text, className="p-2"){ const td = document.createElement("td"); td.className = className; td.textContent = (text ?? ""); tr.appendChild(td); }
-    function lastNonEmptyLevel(arr){ for (let i = arr.length - 1; i >= 0; i--) { if (Array.isArray(arr[i]) && arr[i].length > 0) return i; } return 0; }
+    const $ = (id) => document.getElementById(id);
+    const HNL = new Intl.NumberFormat("es-HN", { style: "currency", currency: "HNL", maximumFractionDigits: 0 });
+    const DT = new Intl.DateTimeFormat("es-HN", { dateStyle: "medium", timeStyle: "short" });
+    const fmt = (n) => HNL.format(Number(n || 0));
+    const tsStr = (ts) => ts?.toDate ? DT.format(ts.toDate()) : (ts ? DT.format(new Date(ts)) : "");
+    function show(el) { el.classList.remove('hidden') } function hide(el) { el.classList.add('hidden') }
+    function copyText(t) { return navigator.clipboard?.writeText(t).catch(() => {}); }
+    function toast(msg = "Copiado") { const t = $("toast"); t.textContent = msg; t.classList.add("show"); setTimeout(() => t.classList.remove("show"), 1200); }
+    function htmlEscape(s) { return String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+    function appendCell(tr, text, className = "p-2") { const td = document.createElement("td"); td.className = className; td.textContent = (text ?? ""); tr.appendChild(td); }
+    function lastNonEmptyLevel(arr) { for (let i = arr.length - 1; i >= 0; i--) { if (Array.isArray(arr[i]) && arr[i].length > 0) return i; } return 0; }
+    function isValidEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test((v || "").trim()); }
 
     // ====== Config (vivo) desde panel ======
     const cfgRef = db.collection("config").doc("global");
-    // Defaults (fallback)
-    let ENTRY_FEE_HNL = 1000;         // cuota de activación
-    let DIST_PERCENT  = 30;           // % de red (POOL)
-    let LEVEL_PERCENTS = [10,6,4,3,2,1.5,1.2,1,0.7,0.6]; // % por nivel (del POOL)
+    let ENTRY_FEE_HNL = 1000;
+    let DIST_PERCENT = 30;
+    let LEVEL_PERCENTS = [10, 6, 4, 3, 2, 1.5, 1.2, 1, 0.7, 0.6];
 
-    function renderDistributionUI(){
-      const pool = Math.round(ENTRY_FEE_HNL * (DIST_PERCENT/100));
-      // Chip header
-      const chip = $("poolChip");
-      if (chip){
-        chip.textContent = `Reparto: ${fmt(pool)} (de ${DIST_PERCENT}% de ${fmt(ENTRY_FEE_HNL)})`;
-        chip.classList.remove("hidden");
-      }
-      // Widget Ganancias
-      const elFee  = $("distFee");
-      const elPct  = $("distPct");
+    function renderDistributionUI() {
+      const pool = Math.round(ENTRY_FEE_HNL * (DIST_PERCENT / 100));
+      // header chip eliminado; función tolera ausencia
+      const elFee = $("distFee");
+      const elPct = $("distPct");
       const elPool = $("distPool");
-      const tbody  = $("distLevels");
-      if (elFee)  elFee.textContent  = fmt(ENTRY_FEE_HNL);
-      if (elPct)  elPct.textContent  = `${DIST_PERCENT}%`;
+      const tbody = $("distLevels");
+      if (elFee) elFee.textContent = fmt(ENTRY_FEE_HNL);
+      if (elPct) elPct.textContent = `${DIST_PERCENT}%`;
       if (elPool) elPool.textContent = fmt(pool);
 
-      if (tbody){
+      if (tbody) {
         tbody.innerHTML = "";
-        const sum = LEVEL_PERCENTS.reduce((a,b)=>a+(Number(b)||0),0);
-        const norm = sum > 0 ? (100/sum) : 1; // Normaliza visualmente al 100% del POOL
-        LEVEL_PERCENTS.forEach((p,i)=>{
-          const pctNorm = Number(((Number(p)||0)*norm).toFixed(4));
-          const amt = Math.round(pool * (pctNorm/100));
+        const sum = LEVEL_PERCENTS.reduce((a, b) => a + (Number(b) || 0), 0);
+        const norm = sum > 0 ? (100 / sum) : 1;
+        LEVEL_PERCENTS.forEach((p, i) => {
+          const pctNorm = Number(((Number(p) || 0) * norm).toFixed(4));
+          const amt = Math.round(pool * (pctNorm / 100));
           const tr = document.createElement("tr");
           tr.innerHTML = `
-            <td class="p-2">Nivel ${i+1}</td>
+            <td class="p-2">Nivel ${i + 1}</td>
             <td class="p-2">${pctNorm.toFixed(2)}%</td>
             <td class="p-2 font-semibold">${fmt(amt)}</td>
           `;
@@ -493,82 +486,81 @@
       }
     }
 
-    // Suscripción en vivo
-    cfgRef.onSnapshot((doc)=>{
-      const d = doc.exists ? (doc.data()||{}) : {};
-      if (typeof d.entryFee === "number" && isFinite(d.entryFee) && d.entryFee>0) ENTRY_FEE_HNL = Math.round(d.entryFee);
-      if (typeof d.distPercent === "number" && isFinite(d.distPercent) && d.distPercent>=0 && d.distPercent<=100) DIST_PERCENT = d.distPercent;
-      if (Array.isArray(d.percents) && d.percents.length===10) LEVEL_PERCENTS = d.percents.map(Number);
+    cfgRef.onSnapshot((doc) => {
+      const d = doc.exists ? (doc.data() || {}) : {};
+      if (typeof d.entryFee === "number" && isFinite(d.entryFee) && d.entryFee > 0) ENTRY_FEE_HNL = Math.round(d.entryFee);
+      if (typeof d.distPercent === "number" && isFinite(d.distPercent) && d.distPercent >= 0 && d.distPercent <= 100) DIST_PERCENT = d.distPercent;
+      if (Array.isArray(d.percents) && d.percents.length === 10) LEVEL_PERCENTS = d.percents.map(Number);
       renderDistributionUI();
     });
-    renderDistributionUI(); // primer render
+    renderDistributionUI();
 
     // ===== Estado global =====
     let currentUid = null, currentUserDoc = null, currentRefURL = "";
     const MAX_LEVELS = 10;
     const PER_PARENT_LIMIT = 500;
-    let levels = Array.from({length: MAX_LEVELS+1}, ()=>[]);
+    let levels = Array.from({ length: MAX_LEVELS + 1 }, () => []);
     let nivelSeleccionado = 1;
     let networkLoadedOnce = false;
 
     const REQ_FIRST_LEVEL = 4;
     const AUTO_SAVE_RANK = true;
     const LOG_RANK_HISTORY = true;
-    const BADGES = {1:"🥇",2:"🥈",3:"🥉",4:"🏅",5:"🎖️",6:"🏆",7:"💎",8:"⭐",9:"🌟",10:"🔥"};
-    const RANK_BADGE_BY_LEVEL = {0:"⬜",1:"🥉",2:"🥈",3:"🥇",4:"🏅",5:"🎖️",6:"🏆",7:"💎",8:"⭐",9:"🌟",10:"🔥"};
-    const RANK_NAME_BY_LEVEL  = {0:"Sin rango",1:"Bronce",2:"Plata",3:"Oro",4:"Rubí",5:"Zafiro",6:"Esmeralda",7:"Diamante",8:"Estrella",9:"Leyenda",10:"Élite"};
+    const BADGES = { 1: "🥇", 2: "🥈", 3: "🥉", 4: "🏅", 5: "🎖️", 6: "🏆", 7: "💎", 8: "⭐", 9: "🌟", 10: "🔥" };
+    const RANK_BADGE_BY_LEVEL = { 0: "⬜", 1: "🥉", 2: "🥈", 3: "🥇", 4: "🏅", 5: "🎖️", 6: "🏆", 7: "💎", 8: "⭐", 9: "🌟", 10: "🔥" };
+    const RANK_NAME_BY_LEVEL = { 0: "Sin rango", 1: "Bronce", 2: "Plata", 3: "Oro", 4: "Rubí", 5: "Zafiro", 6: "Esmeralda", 7: "Diamante", 8: "Estrella", 9: "Leyenda", 10: "Élite" };
     let lastSavedRankLevel = null;
 
     const nodeDataMap = new Map();
     let childrenCountById = new Map();
 
     // ===== LOGIN =====
-    $("loginByCodeBtn").addEventListener("click", async ()=>{
+    $("loginByCodeBtn").addEventListener("click", async () => {
       $("authMsg2").textContent = "";
       const username = $("loginUsername").value.trim();
       const code = $("loginCode").value;
-      if(!username || !code){
+      if (!username || !code) {
         $("authMsg2").textContent = "Ingresa usuario y código.";
         $("authMsg2").className = "text-xs text-rose-600";
         return;
       }
-      try{
-        const qs = await db.collection("users").where("username","==",username).limit(1).get();
-        if (qs.empty){
+      try {
+        const qs = await db.collection("users").where("username", "==", username).limit(1).get();
+        if (qs.empty) {
           $("authMsg2").textContent = "Usuario no encontrado.";
           $("authMsg2").className = "text-xs text-rose-600";
           return;
         }
         const u = qs.docs[0].data();
         const email = u.email;
-        if(!email){
-          $("authMsg2").textContent = "El usuario no tiene email asignado. Contacta al administrador.";
+        if (!email) {
+          $("authMsg2").textContent = "El usuario no tiene email asignado. Actualiza tu correo en Perfil o contacta al administrador.";
           $("authMsg2").className = "text-xs text-rose-600";
           return;
         }
         await auth.signInWithEmailAndPassword(email, code);
         $("authMsg2").textContent = "¡Bienvenido!";
         $("authMsg2").className = "text-xs text-emerald-600";
-      }catch(e){
+      } catch (e) {
         $("authMsg2").textContent = "Código incorrecto o contraseña no coincide.";
         $("authMsg2").className = "text-xs text-rose-600";
         console.error(e);
       }
     });
-    ["loginUsername","loginCode"].forEach(id=>$(id).addEventListener("keydown",(e)=>{ if(e.key==="Enter") $("loginByCodeBtn").click(); }));
+    ["loginUsername", "loginCode"].forEach(id => $(id).addEventListener("keydown", (e) => { if (e.key === "Enter") $("loginByCodeBtn").click(); }));
 
     // ===== LOGOUT =====
-    $("logoutBtn").addEventListener("click", async ()=>{
+    $("logoutBtn").addEventListener("click", async () => {
       await auth.signOut();
       networkLoadedOnce = false;
       location.reload();
     });
 
     // ===== Auth state =====
-    auth.onAuthStateChanged(async (user)=>{
-      if(!user){
+    auth.onAuthStateChanged(async (user) => {
+      if (!user) {
         show($("authBox")); hide($("app")); $("uName").textContent = ""; $("logoutBtn").classList.add("hidden");
-        currentUid = null; currentUserDoc = null; levels = Array.from({length: MAX_LEVELS+1}, ()=>[]);
+        currentUid = null; currentUserDoc = null; levels = Array.from({ length: MAX_LEVELS + 1 }, () => []);
         nodeDataMap.clear(); childrenCountById = new Map(); lastSavedRankLevel = null;
         updateBadgesUI(); updateRankUI(0, 0);
         const headerReg = $("registerLink"); if (headerReg) headerReg.href = "registro.html";
@@ -582,8 +574,6 @@
       $("uName").textContent = currentUserDoc?.username ? `@${currentUserDoc.username}` : "(sin usuario)";
 
       await cargarSaldoRealtime();
-      await cargarComisionesResumen();
-      await cargarComisionesTabla();
 
       // Enlace de referido con ?ref=UID
       const regURL = new URL("registro.html", window.location.href);
@@ -592,23 +582,23 @@
       $("refLink").value = currentRefURL;
       const headerReg = $("registerLink"); if (headerReg) headerReg.href = currentRefURL;
 
-      $("copyRef").onclick = async ()=>{
-        try{
-          if (navigator.share){ await navigator.share({ title:"Únete a HERPLUS", url: currentRefURL }); return; }
-        }catch(_){}
+      $("copyRef").onclick = async () => {
+        try {
+          if (navigator.share) { await navigator.share({ title: "Únete a HERPLUS", url: currentRefURL }); return; }
+        } catch (_) {}
         await copyText(currentRefURL); toast("Enlace copiado");
       };
 
       let qrInstance = null;
-      $("qrRef").onclick = ()=>{
+      $("qrRef").onclick = () => {
         const box = $("qrBox");
-        if (box.classList.contains("hidden")){
+        if (box.classList.contains("hidden")) {
           show(box);
-          if (!qrInstance){ qrInstance = new QRCode("qrcode", {text: currentRefURL, width: 220, height: 220, correctLevel: QRCode.CorrectLevel.M}); }
+          if (!qrInstance) { qrInstance = new QRCode("qrcode", { text: currentRefURL, width: 220, height: 220, correctLevel: QRCode.CorrectLevel.M }); }
           else { qrInstance.clear(); qrInstance.makeCode(currentRefURL); }
         } else { hide(box); }
       };
-      $("downloadQR").onclick = ()=>{
+      $("downloadQR").onclick = () => {
         const canvas = $("qrcode").querySelector("canvas");
         const img = $("qrcode").querySelector("img");
         const href = canvas ? canvas.toDataURL("image/png") : (img ? img.src : null);
@@ -625,84 +615,46 @@
     });
 
     // ===== Tabs =====
-    document.querySelectorAll(".tab-btn").forEach(btn=>{
-      btn.addEventListener("click", async ()=>{
-        document.querySelectorAll(".tab-btn").forEach(x=>{
-          x.classList.remove("bg-indigo-600","text-white");
-          x.setAttribute("aria-selected","false");
+    document.querySelectorAll(".tab-btn").forEach(btn => {
+      btn.addEventListener("click", async () => {
+        document.querySelectorAll(".tab-btn").forEach(x => {
+          x.classList.remove("bg-indigo-600", "text-white");
+          x.setAttribute("aria-selected", "false");
         });
-        btn.classList.add("bg-indigo-600","text-white");
-        btn.setAttribute("aria-selected","true");
-        document.querySelectorAll(".tab").forEach(x=>x.classList.add("hidden"));
+        btn.classList.add("bg-indigo-600", "text-white");
+        btn.setAttribute("aria-selected", "true");
+        document.querySelectorAll(".tab").forEach(x => x.classList.add("hidden"));
         $(btn.dataset.tab).classList.remove("hidden");
-        if (btn.dataset.tab === "tab-red" && !networkLoadedOnce){
+        if (btn.dataset.tab === "tab-red" && !networkLoadedOnce) {
           await cargarRed10(); await cargarGananciasRed(); networkLoadedOnce = true;
         }
       });
     });
 
     // ===== Wallet realtime =====
-    async function cargarSaldoRealtime(){
-      try{
+    async function cargarSaldoRealtime() {
+      try {
         const ref = db.collection("wallets").doc(currentUid);
-        ref.onSnapshot(s=>{
+        ref.onSnapshot(s => {
           const balance = s.exists ? (s.data().balance || 0) : 0;
           $("saldo").textContent = fmt(balance);
         });
-      }catch(e){
+      } catch (e) {
         $("saldo").textContent = fmt(0);
         console.error(e);
       }
     }
 
-    // ===== Comisiones =====
-    async function cargarComisionesResumen(){
-      try{
-        const q = await db.collection("commissions").where("earnerId","==",currentUid).orderBy("createdAt","desc").get();
-        let total=0, directos=0;
-        q.forEach(d=>{ const c=d.data(); total+=Number(c.amount||0); if((c.level||0)===1) directos+=Number(c.amount||0); });
-        $("sumarioGanancias").textContent = `Total: ${fmt(total)} | Directos: ${fmt(directos)}`;
-        $("sumarioGanancias2").textContent = `Total: ${fmt(total)} | Directos: ${fmt(directos)}`;
-      }catch(e){ console.error(e); }
-    }
-    async function cargarComisionesTabla(){
-      try{
-        const q = await db.collection("commissions").where("earnerId","==",currentUid).orderBy("createdAt","desc").limit(50).get();
-        const tbody = $("ultimasComisiones"); tbody.innerHTML = "";
-        const t2 = $("tablaComisiones"); t2.innerHTML = "";
-        let i=0;
-        q.forEach((d)=>{
-          const c = d.data();
-          if (i < 10){
-            const tr1 = document.createElement("tr");
-            appendCell(tr1, tsStr(c.createdAt));
-            appendCell(tr1, `Nivel ${c.level||"-"}`);
-            appendCell(tr1, c.payerUsername || c.payerId || "-");
-            appendCell(tr1, fmt(c.amount||0), "p-2 font-semibold");
-            tbody.appendChild(tr1);
-          }
-          const tr2 = document.createElement("tr");
-          appendCell(tr2, tsStr(c.createdAt));
-          appendCell(tr2, String(c.level||"-"));
-          appendCell(tr2, c.payerUsername || c.payerId || "-");
-          appendCell(tr2, (c.percent!=null ? `${c.percent}%` : (c.rate!=null ? String(c.rate) : "-")));
-          appendCell(tr2, fmt(c.amount||0), "p-2 font-semibold");
-          t2.appendChild(tr2);
-          i++;
-        });
-      }catch(e){ console.error(e); }
-    }
-
     // ===== Red (10 niveles) =====
-    async function fetchChildren(parents){
+    async function fetchChildren(parents) {
       if (!parents.length) return [];
       const snaps = await Promise.all(
-        parents.map(p => db.collection("users").where("placementParentId","==",p.id).limit(PER_PARENT_LIMIT).get())
+        parents.map(p => db.collection("users").where("placementParentId", "==", p.id).limit(PER_PARENT_LIMIT).get())
       );
       const out = [];
-      snaps.forEach((snap, idx)=>{
+      snaps.forEach((snap, idx) => {
         const parent = parents[idx];
-        snap.forEach(doc=>{
+        snap.forEach(doc => {
           const data = doc.data() || {};
           out.push({
             id: doc.id,
@@ -718,67 +670,69 @@
       return out;
     }
 
-    function buildChildrenCountMap(){
+    function buildChildrenCountMap() {
       const m = new Map();
       m.set(currentUid, levels[1]?.length || 0);
-      for(let lvl=2; lvl<=MAX_LEVELS; lvl++){
-        for(const node of levels[lvl]){
-          const pid = node.parentId; if(!pid) continue;
-          m.set(pid, (m.get(pid)||0) + 1);
+      for (let lvl = 2; lvl <= MAX_LEVELS; lvl++) {
+        for (const node of levels[lvl]) {
+          const pid = node.parentId; if (!pid) continue;
+          m.set(pid, (m.get(pid) || 0) + 1);
         }
       }
       return m;
     }
-    function computeCascadeRank(){
+    function computeCascadeRank() {
       let rank = 0;
-      if( (childrenCountById.get(currentUid)||0) >= REQ_FIRST_LEVEL ){ rank = 1; } else return 0;
-      for(let depth=2; depth<=MAX_LEVELS; depth++){
-        const prevLevelNodes = levels[depth-1];
-        if(prevLevelNodes.length===0){ break; }
-        const allQualified = prevLevelNodes.every(n => (childrenCountById.get(n.id)||0) >= REQ_FIRST_LEVEL);
-        if(allQualified) rank = depth; else break;
+      if ((childrenCountById.get(currentUid) || 0) >= REQ_FIRST_LEVEL) { rank = 1; } else return 0;
+      for (let depth = 2; depth <= MAX_LEVELS; depth++) {
+        const prevLevelNodes = levels[depth - 1];
+        if (prevLevelNodes.length === 0) { break; }
+        const allQualified = prevLevelNodes.every(n => (childrenCountById.get(n.id) || 0) >= REQ_FIRST_LEVEL);
+        if (allQualified) rank = depth; else break;
       }
       return rank;
     }
-    function isLevelComplete(levelIdx){ return (levels[levelIdx]?.length || 0) >= REQ_FIRST_LEVEL; }
+    function isLevelComplete(levelIdx) { return (levels[levelIdx]?.length || 0) >= REQ_FIRST_LEVEL; }
 
-    async function logRankHistory(prevLevel, nextLevel){
-      if(!LOG_RANK_HISTORY) return;
-      try{
-        const payload = { from:Number(prevLevel??0), to:Number(nextLevel??0),
-          name:RANK_NAME_BY_LEVEL[nextLevel]||`R${nextLevel}`,
-          badge:RANK_BADGE_BY_LEVEL[nextLevel]||"⬜",
+    async function logRankHistory(prevLevel, nextLevel) {
+      if (!LOG_RANK_HISTORY) return;
+      try {
+        const payload = {
+          from: Number(prevLevel ?? 0), to: Number(nextLevel ?? 0),
+          name: RANK_NAME_BY_LEVEL[nextLevel] || `R${nextLevel}`,
+          badge: RANK_BADGE_BY_LEVEL[nextLevel] || "⬜",
           at: firebase.firestore.FieldValue.serverTimestamp()
         };
         await db.collection("users").doc(currentUid).collection("rankHistory").add(payload);
-      }catch(e){ console.error("No se pudo registrar rankHistory:", e); }
+      } catch (e) { console.error("No se pudo registrar rankHistory:", e); }
     }
-    async function saveRankIfChanged(rankLevel){
-      try{
-        if(rankLevel === lastSavedRankLevel) return;
-        const rankObj = { level: rankLevel,
+    async function saveRankIfChanged(rankLevel) {
+      try {
+        if (rankLevel === lastSavedRankLevel) return;
+        const rankObj = {
+          level: rankLevel,
           name: RANK_NAME_BY_LEVEL[rankLevel] || `R${rankLevel}`,
           badge: RANK_BADGE_BY_LEVEL[rankLevel] || "⬜",
           updatedAt: firebase.firestore.FieldValue.serverTimestamp()
         };
-        if(AUTO_SAVE_RANK){
+        if (AUTO_SAVE_RANK) {
           await db.collection("users").doc(currentUid).set({ rank: rankObj }, { merge: true });
         }
         await logRankHistory(lastSavedRankLevel ?? 0, rankLevel);
         lastSavedRankLevel = rankLevel;
-      }catch(e){ console.error("No se pudo guardar el rango:", e); }
+      } catch (e) { console.error("No se pudo guardar el rango:", e); }
     }
 
-    function updateBadgesUI(){
-      const bar = $("badgeBar"); if(!bar) return;
+    function updateBadgesUI() {
+      const bar = $("badgeBar"); if (!bar) return;
       bar.innerHTML = "";
       const label = document.createElement("span");
       label.className = "text-xs text-slate-600 mr-1";
       label.textContent = "Insignias de nivel:";
       bar.appendChild(label);
       let any = false;
-      for(let i=1;i<=MAX_LEVELS;i++){
-        if(isLevelComplete(i)){
+      for (let i = 1; i <= MAX_LEVELS; i++) {
+        if (isLevelComplete(i)) {
           any = true;
           const badge = document.createElement("span");
           badge.className = "px-2 py-1 rounded-md border bg-white";
@@ -787,7 +741,7 @@
           bar.appendChild(badge);
         }
       }
-      if(!any){
+      if (!any) {
         const none = document.createElement("span");
         none.className = "text-xs text-slate-500";
         none.textContent = " aún sin completar.";
@@ -795,16 +749,16 @@
       }
     }
 
-    function updateRankUI(rank, maxDepthSeen){
+    function updateRankUI(rank, maxDepthSeen) {
       $("rankTitle").textContent = `Rango actual: R${rank}`;
-      $("rankName").textContent  = RANK_NAME_BY_LEVEL[rank] || "—";
+      $("rankName").textContent = RANK_NAME_BY_LEVEL[rank] || "—";
       $("rankBadge").textContent = RANK_BADGE_BY_LEVEL[rank] || "⬜";
       let hint = "";
-      if(rank===0){
-        const have = childrenCountById.get(currentUid)||0;
+      if (rank === 0) {
+        const have = childrenCountById.get(currentUid) || 0;
         hint = `Para R1: necesitas ${REQ_FIRST_LEVEL} directos (L1). Llevas ${have}.`;
-      }else{
-        hint = `Para R${rank+1}: todos los miembros de L${rank} deben tener ${REQ_FIRST_LEVEL} directos.`;
+      } else {
+        hint = `Para R${rank + 1}: todos los miembros de L${rank} deben tener ${REQ_FIRST_LEVEL} directos.`;
       }
       $("rankHint").textContent = hint;
       const pct = Math.max(0, Math.min(100, (rank / Math.max(1, maxDepthSeen)) * 100));
@@ -812,16 +766,16 @@
       $("rankDepthText").textContent = `${rank} / ${maxDepthSeen}`;
     }
 
-    function renderLevelChips(){
+    function renderLevelChips() {
       const box = $("levelChips"); box.innerHTML = "";
-      for (let i=1;i<=MAX_LEVELS;i++){
+      for (let i = 1; i <= MAX_LEVELS; i++) {
         const count = levels[i].length;
         const complete = isLevelComplete(i);
         const chip = document.createElement("button");
         chip.type = "button";
-        chip.className = "tag" + (i===nivelSeleccionado?" active":"");
-        chip.innerHTML = `<span class="dot"></span> Nivel ${i} · <b>${count}</b> ${complete ? `<span aria-label="completo" title="Nivel ${i} completo" class="ml-1">${BADGES[i]||"🏅"}</span>`:""}`;
-        chip.addEventListener("click", ()=>{
+        chip.className = "tag" + (i === nivelSeleccionado ? " active" : "");
+        chip.innerHTML = `<span class="dot"></span> Nivel ${i} · <b>${count}</b> ${complete ? `<span aria-label="completo" title="Nivel ${i} completo" class="ml-1">${BADGES[i] || "🏅"}</span>` : ""}`;
+        chip.addEventListener("click", () => {
           nivelSeleccionado = i;
           renderLevelChips();
           renderLevelTable();
@@ -830,29 +784,29 @@
       }
     }
 
-    function renderLevelTable(){
+    function renderLevelTable() {
       $("nivelActualLabel").textContent = String(nivelSeleccionado);
       const tbody = $("nivelTabla"); tbody.innerHTML = "";
       const rows = levels[nivelSeleccionado];
-      rows.forEach(u=>{
-        const directs = childrenCountById.get(u.id)||0;
+      rows.forEach(u => {
+        const directs = childrenCountById.get(u.id) || 0;
         const tr = document.createElement("tr");
         const userText = directs >= REQ_FIRST_LEVEL ? `${u.username} ⭐` : u.username;
         appendCell(tr, userText);
         appendCell(tr, u.status);
-        appendCell(tr, u.parentUsername||u.parentId||"");
+        appendCell(tr, u.parentUsername || u.parentId || "");
         appendCell(tr, (u.createdAt && u.createdAt.toDate) ? tsStr(u.createdAt) : "");
         tbody.appendChild(tr);
       });
     }
 
-    function updateLevelCountersAndDashboard(){
-      const n1 = levels[1].length, n2=levels[2].length, n3=levels[3].length;
+    function updateLevelCountersAndDashboard() {
+      const n1 = levels[1].length, n2 = levels[2].length, n3 = levels[3].length;
       $("cHijos").textContent = n1;
       $("cNietos").textContent = n2;
       $("cBis").textContent = n3;
       $("directos").textContent = n1;
-      const total = levels.reduce((acc,arr,idx)=> idx===0?acc:acc+arr.length, 0);
+      const total = levels.reduce((acc, arr, idx) => idx === 0 ? acc : acc + arr.length, 0);
       $("totalRed").textContent = total;
       $("redUpdatedAt").textContent = DT.format(new Date());
       updateBadgesUI();
@@ -862,18 +816,18 @@
       saveRankIfChanged(rank);
     }
 
-    function exportLevelCSV(){
+    function exportLevelCSV() {
       const data = levels[nivelSeleccionado];
-      const headers = ["usuario","estado","padre","altaISO","directosPropios"];
-      const rows = data.map(u=>[
+      const headers = ["usuario", "estado", "padre", "altaISO", "directosPropios"];
+      const rows = data.map(u => [
         u.username,
         u.status,
         u.parentUsername || u.parentId || "",
         u.createdAt?.toDate ? u.createdAt.toDate().toISOString() : "",
-        childrenCountById.get(u.id)||0
+        childrenCountById.get(u.id) || 0
       ]);
-      const all = [headers, ...rows].map(r=>r.map(x=>`"${String(x??"").replace(/"/g,'""')}"`).join(",")).join("\n");
-      const blob = new Blob([all], {type:"text/csv;charset=utf-8;"});
+      const all = [headers, ...rows].map(r => r.map(x => `"${String(x ?? "").replace(/"/g, '""')}"`).join(",")).join("\n");
+      const blob = new Blob([all], { type: "text/csv;charset=utf-8;" });
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url; a.download = `red_nivel_${nivelSeleccionado}.csv`; a.click();
@@ -881,15 +835,15 @@
     }
     $("exportCSV").addEventListener("click", exportLevelCSV);
 
-    async function cargarRed10(){
-      try{
+    async function cargarRed10() {
+      try {
         $("redState").textContent = "Cargando red…";
-        levels = Array.from({length: MAX_LEVELS+1}, ()=>[]);
+        levels = Array.from({ length: MAX_LEVELS + 1 }, () => []);
         nodeDataMap.clear();
         childrenCountById = new Map();
 
         let me = currentUserDoc;
-        if (!me || !me.username){
+        if (!me || !me.username) {
           const s = await db.collection("users").doc(currentUid).get();
           me = s.exists ? s.data() : {};
           currentUserDoc = me;
@@ -901,10 +855,10 @@
         });
 
         let parents = [{ id: currentUid, username: me?.username || "" }];
-        for (let lvl=1; lvl<=MAX_LEVELS; lvl++){
+        for (let lvl = 1; lvl <= MAX_LEVELS; lvl++) {
           const children = await fetchChildren(parents);
           levels[lvl] = children;
-          children.forEach(ch => nodeDataMap.set(ch.id, {...ch, level: lvl}));
+          children.forEach(ch => nodeDataMap.set(ch.id, { ...ch, level: lvl }));
           parents = children.map(c => ({ id: c.id, username: c.username }));
           $("redState").textContent = `Nivel ${lvl} cargado (${children.length}).`;
         }
@@ -916,7 +870,7 @@
         renderLevelTable();
         updateLevelCountersAndDashboard();
         $("redState").textContent = "Listo.";
-      }catch(e){
+      } catch (e) {
         console.error(e);
         $("redState").textContent = e.message || "Error al cargar la red.";
         toast("No se pudo cargar la red");
@@ -924,50 +878,49 @@
     }
 
     // ===== Ganancias por socio =====
-    async function cargarGananciasRed(){
-      try{
+    async function cargarGananciasRed() {
+      try {
         const tbody = $("tablaGananciasRed");
-        if(!tbody) return;
+        if (!tbody) return;
         tbody.innerHTML = "";
 
         const levelById = new Map();
         const usernameById = new Map();
-        for(let lvl=1; lvl<=MAX_LEVELS; lvl++){
-          (levels[lvl]||[]).forEach(u=>{
+        for (let lvl = 1; lvl <= MAX_LEVELS; lvl++) {
+          (levels[lvl] || []).forEach(u => {
             levelById.set(u.id, lvl);
             usernameById.set(u.id, u.username || u.id);
           });
         }
 
         const snap = await db.collection("commissions")
-                             .where("earnerId","==",currentUid)
-                             .get();
+          .where("earnerId", "==", currentUid)
+          .get();
 
         const sumByPayer = new Map();
         const cntByPayer = new Map();
         const pctSumByPayer = new Map();
-        snap.forEach(doc=>{
+        snap.forEach(doc => {
           const c = doc.data() || {};
           const payer = c.payerId;
-          if(!payer) return;
-          if(!levelById.has(payer)) return;
-
-          sumByPayer.set(payer, (sumByPayer.get(payer)||0) + Number(c.amount||0));
-          cntByPayer.set(payer, (cntByPayer.get(payer)||0) + 1);
-          pctSumByPayer.set(payer, (pctSumByPayer.get(payer)||0) + Number(c.percent||0));
+          if (!payer) return;
+          if (!levelById.has(payer)) return;
+          sumByPayer.set(payer, (sumByPayer.get(payer) || 0) + Number(c.amount || 0));
+          cntByPayer.set(payer, (cntByPayer.get(payer) || 0) + 1);
+          pctSumByPayer.set(payer, (pctSumByPayer.get(payer) || 0) + Number(c.percent || 0));
         });
 
         const rows = Array.from(sumByPayer.entries())
           .filter(([_, total]) => total > 0)
           .map(([payer, total]) => {
-            const cnt = cntByPayer.get(payer)||0;
-            const pctAvg = cnt ? (pctSumByPayer.get(payer)||0) / cnt : 0;
-            return { payer, total, cnt, pctAvg, lvl: levelById.get(payer)||"-", user: usernameById.get(payer)||payer };
+            const cnt = cntByPayer.get(payer) || 0;
+            const pctAvg = cnt ? (pctSumByPayer.get(payer) || 0) / cnt : 0;
+            return { payer, total, cnt, pctAvg, lvl: levelById.get(payer) || "-", user: usernameById.get(payer) || payer };
           })
-          .sort((a,b)=> a.lvl===b.lvl ? b.total - a.total : a.lvl - b.lvl);
+          .sort((a, b) => a.lvl === b.lvl ? b.total - a.total : a.lvl - b.lvl);
 
         let totalGeneral = 0;
-        rows.forEach(r=>{
+        rows.forEach(r => {
           const tr = document.createElement("tr");
           appendCell(tr, r.user);
           appendCell(tr, `L${r.lvl}`);
@@ -979,184 +932,206 @@
         });
 
         $("sumarioGananciasRed").textContent = `Socios: ${rows.length} | Total: ${fmt(totalGeneral)}`;
-      }catch(e){
+      } catch (e) {
         console.error("Error cargando ganancias por socio:", e);
       }
     }
 
     // ===== Perfil & Códigos =====
-    async function cargarPerfil(){
-      try{
+    async function cargarPerfil() {
+      try {
         const s = await db.collection("users").doc(currentUid).get();
         currentUserDoc = s.exists ? s.data() : {};
         $("p_username").value = currentUserDoc?.username || "";
+        $("p_email").value = currentUserDoc?.email || "";
         $("p_whats").value = currentUserDoc?.whatsapp || "";
-        $("p_movie").value = currentUserDoc?.movieCode || "";
-        $("codigoHerplus").value = currentUserDoc?.codigoHerplus || "";
-        $("codigoOficina").value = "";
         lastSavedRankLevel = currentUserDoc?.rank?.level ?? null;
-        if(lastSavedRankLevel!=null){
+        if (lastSavedRankLevel != null) {
           $("rankTitle").textContent = `Rango actual: R${lastSavedRankLevel}`;
-          $("rankName").textContent  = RANK_NAME_BY_LEVEL[lastSavedRankLevel] || "—";
+          $("rankName").textContent = RANK_NAME_BY_LEVEL[lastSavedRankLevel] || "—";
           $("rankBadge").textContent = RANK_BADGE_BY_LEVEL[lastSavedRankLevel] || "⬜";
         }
-      }catch(e){ console.error(e); }
+      } catch (e) { console.error(e); }
     }
 
-    $("savePerfil").addEventListener("click", async ()=>{
-      try{
+    $("savePerfil").addEventListener("click", async () => {
+      try {
+        const email = $("p_email").value.trim();
         const w = $("p_whats").value.trim();
+
+        if (email && !isValidEmail(email)) { $("perfilMsg").textContent = "Correo inválido."; return; }
         if (w && !/^\+?\d{8,15}$/.test(w)) { $("perfilMsg").textContent = "WhatsApp inválido. Usa formato internacional, p. ej. +5049XXXXXXX"; return; }
-        await db.collection("users").doc(currentUid).set({ whatsapp: w }, { merge:true });
+
+        // Actualiza Firestore
+        await db.collection("users").doc(currentUid).set({ email: email || firebase.firestore.FieldValue.delete(), whatsapp: w }, { merge: true });
+
+        // Actualiza Auth si hay email
+        if (email) {
+          const user = auth.currentUser;
+          try {
+            await user.updateEmail(email);
+          } catch (err) {
+            if (err?.code === "auth/requires-recent-login") {
+              const current = prompt("Por seguridad, ingresa tu código ACTUAL para confirmar el cambio de correo:");
+              if (!current) { throw new Error("Cambio cancelado."); }
+              const cred = firebase.auth.EmailAuthProvider.credential(user.email || email, current);
+              await user.reauthenticateWithCredential(cred);
+              await user.updateEmail(email);
+            } else { throw err; }
+          }
+        }
+
         $("perfilMsg").textContent = "Perfil actualizado.";
-      }catch(e){ $("perfilMsg").textContent = e.message || "Error al guardar."; }
+      } catch (e) { $("perfilMsg").textContent = e.message || "Error al guardar."; }
     });
 
-    function setupToggle(inputId, btnId){
+    function setupToggle(inputId, btnId) {
       const input = $(inputId);
       const btn = $(btnId);
-      btn.addEventListener("click", ()=>{ input.type = input.type === "password" ? "text" : "password"; input.focus(); });
+      btn.addEventListener("click", () => { input.type = input.type === "password" ? "text" : "password"; input.focus(); });
     }
-    setupToggle("codigoHerplus","toggleHerplus");
-    setupToggle("codigoOficina","toggleOficina");
+    setupToggle("codigoOficina", "toggleOficina");
 
-    $("guardarCodigos").addEventListener("click", async ()=>{
+    $("guardarCodigos").addEventListener("click", async () => {
       $("perfilMsg").textContent = "";
-      const cHerplus = $("codigoHerplus").value.trim();
       const cOficina = $("codigoOficina").value.trim();
+      if (cOficina && cOficina.length < 6) { $("perfilMsg").textContent = "El Código de Oficina debe tener al menos 6 caracteres."; return; }
 
-      if (cHerplus && cHerplus.length < 6){ $("perfilMsg").textContent = "El Código HERPLUS debe tener al menos 6 caracteres."; return; }
-      if (cOficina && cOficina.length < 6){ $("perfilMsg").textContent = "El Código de Oficina debe tener al menos 6 caracteres."; return; }
-
-      try{
-        await db.collection("users").doc(currentUid).set({
-          codigoHerplus: cHerplus || firebase.firestore.FieldValue.delete(),
-          updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-        }, { merge: true });
-
-        if(cOficina){
+      try {
+        if (cOficina) {
           const user = auth.currentUser;
-          try{
+          try {
             await user.updatePassword(cOficina);
-          }catch(err){
-            if(err?.code === "auth/requires-recent-login"){
+          } catch (err) {
+            if (err?.code === "auth/requires-recent-login") {
               const current = prompt("Por seguridad, ingresa tu código ACTUAL para confirmar el cambio:");
-              if(!current){ throw new Error("Cambio cancelado."); }
+              if (!current) { throw new Error("Cambio cancelado."); }
               const email = user.email;
               const cred = firebase.auth.EmailAuthProvider.credential(email, current);
               await user.reauthenticateWithCredential(cred);
               await user.updatePassword(cOficina);
-            }else{ throw err; }
+            } else { throw err; }
           }
         }
 
-        $("perfilMsg").textContent = "Códigos guardados correctamente.";
+        $("perfilMsg").textContent = "Código actualizado correctamente.";
         $("codigoOficina").value = "";
-      }catch(e){
-        $("perfilMsg").textContent = e?.message || "No se pudo guardar los códigos.";
+      } catch (e) {
+        $("perfilMsg").textContent = e?.message || "No se pudo guardar el código.";
         console.error(e);
       }
     });
 
-    // ===== Método de pago (Airtm) =====
-    function renderPagoPreviews(airtm){
-      const pretty = (airtm && (airtm.handle || airtm.email)) ?
-        `Handle: ${airtm.handle||""}\nEmail: ${airtm.email||""}\nActualizado: ${airtm.updatedAt ? tsStr(airtm.updatedAt) : "-"}` :
-        "Sin configurar";
+    // ===== Método de pago (Banco) =====
+    function renderPagoPreviews(bank) {
+      const pretty = (bank && (bank.bankName || bank.accountName || bank.accountNumber || bank.idNumber))
+        ? `Banco: ${bank.bankName || ""}\nTitular: ${bank.accountName || ""}\nCuenta: ${bank.accountNumber || ""}\nCédula/ID: ${bank.idNumber || ""}\nActualizado: ${bank.updatedAt ? tsStr(bank.updatedAt) : "-"}`
+        : "Sin configurar";
       $("pagoPreview").textContent = pretty;
       $("previewOverlay").textContent = pretty;
     }
 
-    async function cargarPago(){
-      try{
+    async function cargarPago() {
+      try {
         const doc = await db.collection("users").doc(currentUid).get();
         const data = doc.exists ? doc.data() : {};
-        const airtm = data.airtm || {};
-        $("airtm_handle").value = airtm.handle || "";
-        $("airtm_email").value = airtm.email || "";
-        renderPagoPreviews(airtm);
-      }catch(e){ console.error("Error cargando Airtm:", e); }
+        const bank = data.bank || {};
+        $("bank_name").value = bank.bankName || "";
+        $("bank_account_name").value = bank.accountName || "";
+        $("bank_account_number").value = bank.accountNumber || "";
+        $("bank_id_number").value = bank.idNumber || "";
+        renderPagoPreviews(bank);
+      } catch (e) { console.error("Error cargando datos bancarios:", e); }
     }
 
-    function livePreviewPago(){
-      const airtm = {
-        handle: $("airtm_handle").value.trim(),
-        email: $("airtm_email").value.trim(),
+    function livePreviewBank() {
+      const bank = {
+        bankName: $("bank_name").value.trim(),
+        accountName: $("bank_account_name").value.trim(),
+        accountNumber: $("bank_account_number").value.trim(),
+        idNumber: $("bank_id_number").value.trim(),
         updatedAt: new Date()
       };
-      renderPagoPreviews(airtm);
+      renderPagoPreviews(bank);
     }
-    ["airtm_handle","airtm_email"].forEach(id=>$(id)?.addEventListener("input", livePreviewPago));
+    ["bank_name", "bank_account_name", "bank_account_number", "bank_id_number"].forEach(id => $(id)?.addEventListener("input", livePreviewBank));
 
-    function isValidEmail(email){ return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email); }
+    function isValidAccount(n) { return /^[0-9\-]{6,20}$/.test(n || ""); }
+    function isValidId(n) { return String(n || "").length >= 6; }
 
-    $("saveAirtm")?.addEventListener("click", async ()=>{
-      const handle = $("airtm_handle").value.trim();
-      const email  = $("airtm_email").value.trim();
+    $("saveBank")?.addEventListener("click", async () => {
+      const bankName = $("bank_name").value.trim();
+      const accountName = $("bank_account_name").value.trim();
+      const accountNumber = $("bank_account_number").value.trim();
+      const idNumber = $("bank_id_number").value.trim();
 
-      if (!handle){ toast("Escribe tu handle de Airtm"); $("airtm_handle").focus(); return; }
-      if (!email || !isValidEmail(email)){ toast("Correo de Airtm inválido"); $("airtm_email").focus(); return; }
+      if (!bankName) { toast("Escribe el nombre del banco"); $("bank_name").focus(); return; }
+      if (!accountName) { toast("Escribe el titular de la cuenta"); $("bank_account_name").focus(); return; }
+      if (!isValidAccount(accountNumber)) { toast("Número de cuenta inválido"); $("bank_account_number").focus(); return; }
+      if (!isValidId(idNumber)) { toast("Cédula/ID inválido"); $("bank_id_number").focus(); return; }
 
-      try{
+      try {
         await db.collection("users").doc(currentUid).set({
-          airtm: {
-            handle,
-            email,
+          bank: {
+            bankName,
+            accountName,
+            accountNumber,
+            idNumber,
             updatedAt: firebase.firestore.FieldValue.serverTimestamp()
           }
         }, { merge: true });
 
-        toast("Airtm guardado");
+        toast("Datos bancarios guardados");
         await cargarPago();
         const o = $("pagoOverlay"); hide(o); o.classList.remove("flex");
-      }catch(e){
-        console.error("No se pudo guardar Airtm:", e);
-        toast("Error al guardar Airtm");
+      } catch (e) {
+        console.error("No se pudo guardar datos bancarios:", e);
+        toast("Error al guardar datos bancarios");
       }
     });
 
     // Abrir/Cerrar modal de pago
-    $("openPago")?.addEventListener("click", ()=>{
+    $("openPago")?.addEventListener("click", () => {
       const o = $("pagoOverlay");
       show(o); o.classList.add("flex");
       cargarPago();
     });
 
     // ===== Pirámide (SVG) =====
-    function toggleRedView(mode){
-      const tableWrap   = $("tableWrap");
+    function toggleRedView(mode) {
+      const tableWrap = $("tableWrap");
       const pyramidWrap = $("pyramidWrap");
-      const btnTable    = $("viewTableBtn");
-      const btnPyramid  = $("viewPyramidBtn");
-      if(mode==="pyramid"){
+      const btnTable = $("viewTableBtn");
+      const btnPyramid = $("viewPyramidBtn");
+      if (mode === "pyramid") {
         hide(tableWrap); show(pyramidWrap);
-        btnTable.classList.remove("bg-slate-900","text-white");
-        btnPyramid.classList.add("bg-slate-900","text-white");
+        btnTable.classList.remove("bg-slate-900", "text-white");
+        btnPyramid.classList.add("bg-slate-900", "text-white");
         renderPyramid();
-      }else{
+      } else {
         show(tableWrap); hide(pyramidWrap);
-        btnPyramid.classList.remove("bg-slate-900","text-white");
-        btnTable.classList.add("bg-slate-900","text-white");
+        btnPyramid.classList.remove("bg-slate-900", "text-white");
+        btnTable.classList.add("bg-slate-900", "text-white");
       }
     }
 
-    function renderPyramid(){
-      const cont = $("pyramidContainer"); if(!cont) return;
+    function renderPyramid() {
+      const cont = $("pyramidContainer"); if (!cont) return;
       const limitPerLevel = Math.max(1, parseInt($("maxPerLevel")?.value || "120", 10));
-      const levelFills  = ["#C7D2FE","#EEF2FF","#ECFEFF","#F0FDF4","#FEF9C3","#FFE4E6","#F5F3FF","#E0F2FE","#DCFCE7","#FFE4D6","#F1F5F9"];
-      const levelStrokes= ["#6366F1","#CBD5E1","#67E8F9","#86EFAC","#FACC15","#FB7185","#8B5CF6","#38BDF8","#22C55E","#FB923C","#94A3B8"];
+      const levelFills = ["#C7D2FE", "#EEF2FF", "#ECFEFF", "#F0FDF4", "#FEF9C3", "#FFE4E6", "#F5F3FF", "#E0F2FE", "#DCFCE7", "#FFE4D6", "#F1F5F9"];
+      const levelStrokes = ["#6366F1", "#CBD5E1", "#67E8F9", "#86EFAC", "#FACC15", "#FB7185", "#8B5CF6", "#38BDF8", "#22C55E", "#FB923C", "#94A3B8"];
       const rootName = (currentUserDoc?.username || "Tú");
       const L = [];
       L.push([{ id: currentUid, username: rootName, isRoot: true, _level: 0 }]);
-      for(let i=1; i<=MAX_LEVELS; i++){
-        const arr = (levels[i] || []).slice(0, limitPerLevel).map(n => ({...n, _level: i}));
+      for (let i = 1; i <= MAX_LEVELS; i++) {
+        const arr = (levels[i] || []).slice(0, limitPerLevel).map(n => ({ ...n, _level: i }));
         L.push(arr);
       }
       const nodeW = 160, nodeH = 42, vGap = 90, marginX = 40, marginY = 40;
-      const maxAcross = Math.max(...L.map(r=>r.length), 1);
-      const baseWidth = marginX*2 + (maxAcross * (nodeW + 30)) - 30;
-      const width  = Math.max(cont.clientWidth || 900, baseWidth);
-      const height = marginY*2 + (L.length * (nodeH + vGap)) - vGap;
+      const maxAcross = Math.max(...L.map(r => r.length), 1);
+      const baseWidth = marginX * 2 + (maxAcross * (nodeW + 30)) - 30;
+      const width = Math.max(cont.clientWidth || 900, baseWidth);
+      const height = marginY * 2 + (L.length * (nodeH + vGap)) - vGap;
 
       cont.innerHTML = "";
       const svgNS = "http://www.w3.org/2000/svg";
@@ -1172,22 +1147,22 @@
       svg.appendChild(gEdges); svg.appendChild(gNodes);
 
       const posById = {};
-      function layoutRow(y, n){
-        if (n <= 0) return [{x: (width-nodeW)/2, y}];
-        const totalWidth = n * nodeW + (n-1) * 30;
+      function layoutRow(y, n) {
+        if (n <= 0) return [{ x: (width - nodeW) / 2, y }];
+        const totalWidth = n * nodeW + (n - 1) * 30;
         const startX = (width - totalWidth) / 2;
-        return new Array(n).fill(0).map((_,i)=>({ x: startX + i*(nodeW+30), y }));
+        return new Array(n).fill(0).map((_, i) => ({ x: startX + i * (nodeW + 30), y }));
       }
 
       let currentY = marginY;
-      for(let levelIdx=0; levelIdx<L.length; levelIdx++){
+      for (let levelIdx = 0; levelIdx < L.length; levelIdx++) {
         const row = L[levelIdx];
         const coords = layoutRow(currentY, row.length || 1);
 
-        row.forEach((node, i)=>{
-          const {x,y} = coords[i] || coords[0];
-          const lvl = node._level ?? levelIdx;
-          posById[node.id] = { cx: x + nodeW/2, cy: y + nodeH/2, level: lvl };
+        row.forEach((node, i) => {
+          const { x, y } = coords[i] || coords[0];
+          const lvl = node._level || levelIdx;
+          posById[node.id] = { cx: x + nodeW / 2, cy: y + nodeH / 2, level: lvl };
 
           const g = document.createElementNS(svgNS, "g");
           g.setAttribute("data-id", node.id);
@@ -1195,37 +1170,38 @@
 
           const rect = document.createElementNS(svgNS, "rect");
           rect.setAttribute("x", String(x)); rect.setAttribute("y", String(y));
-          rect.setAttribute("rx","8"); rect.setAttribute("ry","8");
+          rect.setAttribute("rx", "8"); rect.setAttribute("ry", "8");
           rect.setAttribute("width", String(nodeW)); rect.setAttribute("height", String(nodeH));
           rect.setAttribute("fill", levelFills[lvl] || "#EEF2FF");
           rect.setAttribute("stroke", levelStrokes[lvl] || "#CBD5E1");
-          rect.setAttribute("stroke-width","1.25");
+          rect.setAttribute("stroke-width", "1.25");
           g.appendChild(rect);
 
           const badge = document.createElementNS(svgNS, "rect");
           badge.setAttribute("x", String(x + 6)); badge.setAttribute("y", String(y + 6));
-          badge.setAttribute("rx","6"); badge.setAttribute("ry","6");
-          badge.setAttribute("width","28"); badge.setAttribute("height","16");
-          badge.setAttribute("fill", levelStrokes[lvl] || "#64748B"); badge.setAttribute("opacity","0.9");
+          badge.setAttribute("rx", "6"); badge.setAttribute("ry", "6");
+          badge.setAttribute("width", "28"); badge.setAttribute("height", "16");
+          badge.setAttribute("fill", levelStrokes[lvl] || "#64748B"); badge.setAttribute("opacity", "0.9");
           g.appendChild(badge);
 
           const badgeText = document.createElementNS(svgNS, "text");
           badgeText.setAttribute("x", String(x + 20)); badgeText.setAttribute("y", String(y + 18));
-          badgeText.setAttribute("text-anchor","middle"); badgeText.setAttribute("font-size","10");
-          badgeText.setAttribute("fill","#FFFFFF"); badgeText.textContent = `L${lvl}`;
+          badgeText.setAttribute("text-anchor", "middle"); badgeText.setAttribute("font-size", "10");
+          badgeText.setAttribute("fill", "#FFFFFF"); badgeText.textContent = `L${lvl}`;
           g.appendChild(badgeText);
 
           const text = document.createElementNS(svgNS, "text");
-          text.setAttribute("x", String(x + nodeW/2)); text.setAttribute("y", String(y + nodeH/2 + 4));
-          text.setAttribute("text-anchor","middle"); text.setAttribute("font-size","12"); text.setAttribute("fill","#0F172A");
-          text.textContent = node.username || node.id?.slice(0,6) || "Nodo";
+          text.setAttribute("x", String(x + nodeW / 2)); text.setAttribute("y", String(y + nodeH / 2 + 4));
+          text.setAttribute("text-anchor", "middle"); text.setAttribute("font-size", "12"); text.setAttribute("fill", "#0F172A");
+          text.textContent = node.username || node.id?.slice(0, 6) || "Nodo";
           g.appendChild(text);
 
-          const directs = (node.id===currentUid) ? (childrenCountById.get(currentUid)||0) : (childrenCountById.get(node.id)||0);
-          if(directs >= REQ_FIRST_LEVEL){
+          const directs = (node.id === currentUid) ? (childrenCountById.get(currentUid) || 0) : (childrenCountById.get(node.id) || 0);
+          if (directs >= REQ_FIRST_LEVEL) {
             const star = document.createElementNS(svgNS, "text");
             star.setAttribute("x", String(x + nodeW - 12)); star.setAttribute("y", String(y + 16));
-            star.setAttribute("text-anchor","middle"); star.setAttribute("font-size","14"); star.textContent = "⭐";
+            star.setAttribute("text-anchor", "middle"); star.setAttribute("font-size", "14");
+            star.textContent = "⭐"; // (bugfix: asignar al elemento correcto)
             g.appendChild(star);
           }
 
@@ -1240,17 +1216,17 @@
         currentY += (nodeH + vGap);
       }
 
-      for(let levelIdx=1; levelIdx<L.length; levelIdx++){
+      for (let levelIdx = 1; levelIdx < L.length; levelIdx++) {
         const row = L[levelIdx];
-        row.forEach(child=>{
-          const parentId = child.parentId || (levelIdx===1 ? currentUid : null);
+        row.forEach(child => {
+          const parentId = child.parentId || (levelIdx === 1 ? currentUid : null);
           const p = parentId ? posById[parentId] : null;
           const c = posById[child.id];
-          if(!p || !c) return;
+          if (!p || !c) return;
           const line = document.createElementNS(svgNS, "line");
-          line.setAttribute("x1", String(p.cx)); line.setAttribute("y1", String(p.cy + nodeH/2));
-          line.setAttribute("x2", String(c.cx)); line.setAttribute("y2", String(c.cy - nodeH/2));
-          line.setAttribute("stroke","#CBD5E1"); line.setAttribute("stroke-width","1.25");
+          line.setAttribute("x1", String(p.cx)); line.setAttribute("y1", String(p.cy + nodeH / 2));
+          line.setAttribute("x2", String(c.cx)); line.setAttribute("y2", String(c.cy - nodeH / 2));
+          line.setAttribute("stroke", "#CBD5E1"); line.setAttribute("stroke-width", "1.25");
           gEdges.appendChild(line);
         });
       }
@@ -1260,9 +1236,9 @@
       renderPyramidSummary(L);
     }
 
-    function renderPyramidLegend(levelFills, levelStrokes){
-      const box = $("pyrLegend"); if(!box) return; box.innerHTML = "";
-      for(let i=0; i<=MAX_LEVELS; i++){
+    function renderPyramidLegend(levelFills, levelStrokes) {
+      const box = $("pyrLegend"); if (!box) return; box.innerHTML = "";
+      for (let i = 0; i <= MAX_LEVELS; i++) {
         const chip = document.createElement("div");
         chip.className = "inline-flex items-center gap-2 px-2 py-1 rounded-md border";
         chip.style.background = levelFills[i] || "#EEF2FF";
@@ -1271,9 +1247,9 @@
         dot.style.width = "10px"; dot.style.height = "10px"; dot.style.borderRadius = "9999px"; dot.style.display = "inline-block";
         dot.style.background = (levelStrokes[i] || "#CBD5E1");
         const text = document.createElement("span");
-        text.textContent = (i===0) ? "L0 (Tú)" : `L${i}`;
+        text.textContent = (i === 0) ? "L0 (Tú)" : `L${i}`;
         chip.appendChild(dot); chip.appendChild(text);
-        if(i>0 && isLevelComplete(i)){
+        if (i > 0 && isLevelComplete(i)) {
           const badge = document.createElement("span");
           badge.textContent = ` ${BADGES[i] || "🏅"}`;
           badge.title = `Nivel ${i} completo (mín. ${REQ_FIRST_LEVEL})`;
@@ -1283,103 +1259,104 @@
       }
     }
 
-    function renderPyramidSummary(L){
-      const el = $("levelSummary"); if(!el) return;
+    function renderPyramidSummary(L) {
+      const el = $("levelSummary"); if (!el) return;
       const parts = [];
-      for(let i=1;i<L.length;i++){
-        const complete = isLevelComplete(i) ? (BADGES[i]||"🏅") : "";
-        parts.push(`L${i}: ${L[i].length}${complete ? " "+complete:""}`);
+      for (let i = 1; i < L.length; i++) {
+        const complete = isLevelComplete(i) ? (BADGES[i] || "🏅") : "";
+        parts.push(`L${i}: ${L[i].length}${complete ? " " + complete : ""}`);
       }
       el.textContent = `Resumen por nivel → ${parts.join("  |  ")}`;
     }
 
-    function getNodeDataByEventTarget(target){
+    function getNodeDataByEventTarget(target) {
       const g = target.closest && target.closest("g[data-id]");
       const id = g ? g.getAttribute("data-id") : null;
       return id ? nodeDataMap.get(id) : null;
     }
-    function onNodeEnter(e){
+    function onNodeEnter(e) {
       const d = getNodeDataByEventTarget(e.target);
-      if(!d) return;
+      if (!d) return;
       const tip = $("pyrTooltip");
-      const directs = childrenCountById.get(d.id)||0;
+      const directs = childrenCountById.get(d.id) || 0;
       const starLine = (directs >= REQ_FIRST_LEVEL) ? `\n⭐ Primer nivel completo (${directs} directos)` : "";
       tip.textContent =
-        `👤 ${d.username} (L${d.level ?? "?"})\n`+
-        (d.status ? `🔖 Estado: ${d.status}\n` : "")+
+        `👤 ${d.username} (L${d.level ?? "?"})\n` +
+        (d.status ? `🔖 Estado: ${d.status}\n` : "") +
         (d.createdAt ? `⏱ Alta: ${tsStr(d.createdAt)}` : "") + starLine;
       tip.classList.remove("hidden");
       onNodeMove(e);
     }
-    function onNodeMove(e){
+    function onNodeMove(e) {
       const tip = $("pyrTooltip");
-      if(tip.classList.contains("hidden")) return;
+      if (tip.classList.contains("hidden")) return;
       const container = $("pyramidContainer");
       const rect = container.getBoundingClientRect();
       const x = e.clientX - rect.left + container.scrollLeft + 14;
       const y = e.clientY - rect.top + container.scrollTop + 14;
-      tip.style.left = x + "px"; tip.style.top  = y + "px";
+      tip.style.left = x + "px"; tip.style.top = y + "px";
     }
-    function onNodeLeave(){ $("pyrTooltip").classList.add("hidden"); }
-    function onNodeClick(e){
+    function onNodeLeave() { $("pyrTooltip").classList.add("hidden"); }
+    function onNodeClick(e) {
       const d = getNodeDataByEventTarget(e.target);
-      if(!d) return;
+      if (!d) return;
       const box = $("nodeDetail");
-      const directs = childrenCountById.get(d.id)||0;
+      const directs = childrenCountById.get(d.id) || 0;
       const parentLine = d.parentUsername || d.parentId ? `<div><b>Padre:</b> ${htmlEscape(d.parentUsername || d.parentId)}</div>` : "";
       box.innerHTML = `
         <div><b>Usuario:</b> ${htmlEscape(d.username)}</div>
         <div><b>Nivel:</b> L${d.level ?? "?"}</div>
         ${d.status ? `<div><b>Estado:</b> ${htmlEscape(d.status)}</div>` : ""}
         ${parentLine}
-        <div><b>Directos:</b> ${directs} ${directs>=REQ_FIRST_LEVEL? " <span title='Primer nivel completo'>⭐</span>":""}</div>
+        <div><b>Directos:</b> ${directs} ${directs >= REQ_FIRST_LEVEL ? " <span title='Primer nivel completo'>⭐</span>" : ""}</div>
         ${d.createdAt ? `<div><b>Alta:</b> ${tsStr(d.createdAt)}</div>` : ""}
         <div class="mt-2">
           <button id="copyUserBtn" type="button" class="px-3 py-1.5 rounded bg-slate-900 text-white text-xs">Copiar usuario</button>
         </div>
       `;
       const o = $("nodeOverlay"); show(o); o.classList.add("flex");
-      setTimeout(()=>{ const cu = $("copyUserBtn"); if(cu) cu.onclick = ()=>{ copyText(d.username||""); toast("Usuario copiado"); }; },0);
+      setTimeout(() => { const cu = $("copyUserBtn"); if (cu) cu.onclick = () => { copyText(d.username || ""); toast("Usuario copiado"); }; }, 0);
     }
 
     // Cierre de modales
-    function bindBackdropClose(overlayId, closeBtnId){
+    function bindBackdropClose(overlayId, closeBtnId) {
       const ov = $(overlayId), closeBtn = $(closeBtnId);
-      if(!ov) return;
-      if(closeBtn) closeBtn.addEventListener('click', ()=>{ hide(ov); ov.classList.remove("flex"); });
-      document.addEventListener('keydown', e=>{
-        if(!ov.classList.contains('hidden') && e.key === 'Escape'){
+      if (!ov) return;
+      if (closeBtn) closeBtn.addEventListener('click', () => { hide(ov); ov.classList.remove("flex"); });
+      document.addEventListener('keydown', e => {
+        if (!ov.classList.contains('hidden') && e.key === 'Escape') {
           hide(ov); ov.classList.remove("flex");
         }
       });
-      ov.addEventListener('click', e=>{
-        if(e.target === ov){ hide(ov); ov.classList.remove("flex"); }
+      ov.addEventListener('click', e => {
+        if (e.target === ov) { hide(ov); ov.classList.remove("flex"); }
       });
     }
-    bindBackdropClose('pagoOverlay','closePago');
-    bindBackdropClose('nodeOverlay','closeNode');
+    bindBackdropClose('pagoOverlay', 'closePago');
+    bindBackdropClose('nodeOverlay', 'closeNode');
 
-    function exportPyramidSVG(){
+    function exportPyramidSVG() {
       const svg = $("pyramidContainer")?.querySelector("svg");
-      if(!svg){ toast("No hay gráfico para exportar"); return; }
+      if (!svg) { toast("No hay gráfico para exportar"); return; }
       const xml = new XMLSerializer().serializeToString(svg);
       const blob = new Blob([xml], { type: "image/svg+xml;charset=utf-8" });
-      const url  = URL.createObjectURL(blob);
+      const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url; a.download = "red_piramide.svg"; a.click();
       URL.revokeObjectURL(url);
     }
 
-    (function initPyramidEvents(){
+    (function initPyramidEvents() {
       const btnPyr = $("viewPyramidBtn");
       const btnTbl = $("viewTableBtn");
       const inpMax = $("maxPerLevel");
       const btnExp = $("exportSVG");
-      if(btnPyr) btnPyr.addEventListener("click", ()=> toggleRedView("pyramid"));
-      if(btnTbl) btnTbl.addEventListener("click", ()=> toggleRedView("table"));
-      if(inpMax) inpMax.addEventListener("change", renderPyramid);
-      if(btnExp) btnExp.addEventListener("click", exportPyramidSVG);
+      if (btnPyr) btnPyr.addEventListener("click", () => toggleRedView("pyramid"));
+      if (btnTbl) btnTbl.addEventListener("click", () => toggleRedView("table"));
+      if (inpMax) inpMax.addEventListener("change", renderPyramid);
+      if (btnExp) btnExp.addEventListener("click", exportPyramidSVG);
     })();
   </script>
 </body>
 </html>
+
